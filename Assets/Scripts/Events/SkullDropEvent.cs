@@ -6,11 +6,16 @@ public class SkullDropEvent : MonoBehaviour
     [SerializeField] private Transform skulls;
     [SerializeField] private SoundType soundToPlay;
 
+
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerView>() != null && GameService.Instance.GetPlayerController().KeysEquipped >= keysRequiredToTrigger)
         {
             OnSkullDrop();
+            EventService.Instance.OnSkullDrop.InvokeEvent();
             GameService.Instance.GetSoundView().PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
